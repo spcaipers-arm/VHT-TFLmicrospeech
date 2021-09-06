@@ -1,5 +1,5 @@
 
-# Arm Virtual Hardware Targets - Example
+# ML Example
 
 ## Micro speech for TensorFlow Lite
 
