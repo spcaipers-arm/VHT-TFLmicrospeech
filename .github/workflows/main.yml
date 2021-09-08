@@ -25,12 +25,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Create Container runtime from DockerHub
+        run : |
+          docker run -i -v ${{ github.workspace }}:/workspace/host --mac-address="00:02:F7:FF:55:55" --name build_runtime -d armswdev/cmsis_tools_m55:latest 
+          docker exec build_runtime pip3 install six requests pyyaml junit_xml pillow 
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Build on Docker
+        run: 
+          docker exec build_runtime cp_install.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/packlist
+          docker exec build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
+   
+    #  - name: Execute on VHT
+    #    run: 
+          
