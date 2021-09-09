@@ -1,0 +1,15 @@
+suite:
+  name: "Tensorflow lite micro examples"
+  model: ""
+  configuration: ""
+  pre: ""
+  post: ""
+
+  tests:
+   - "microspeech example":
+      executable: "./elf/microspeech.axf"
+      arguments: "--cyclelimit=10000000"
+      pre: ""
+      post: ""
+      timeout: 20
+  
