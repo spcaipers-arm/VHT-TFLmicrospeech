@@ -5,8 +5,8 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  #push:
+  #  branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -36,6 +36,8 @@ jobs:
           docker exec build_runtime cp_install.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/packlist
           docker exec  -w /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55 build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
    
-    #  - name: Execute on VHT
-    #    run: 
-          
+       - name: Prepare VHT Testsuite
+         run: |
+           mv ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ${{ github.workspace }}/vht/elf/
+           
+           
