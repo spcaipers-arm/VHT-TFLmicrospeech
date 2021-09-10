@@ -46,7 +46,7 @@ jobs:
       # Run test suite in Arm VHT
       - uses: ARM-software/VHT-AMI@master
         with:
-          vht_in: ./vht
+          vht_in: ${{ github.workspace }}/vht/
           instance_id: ${{ secrets.AWS_INSTANCE_ID }}
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key_id: ${{ secrets.AWS_SECRET_KEY }}
