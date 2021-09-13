@@ -39,8 +39,9 @@ jobs:
       - name: Prepare VHT Testsuite
         run: |
            cp ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ${{ github.workspace }}/vht/elf/
-
-      # Run test suite in Arm VHT
+           cp ${{ github.workspace }}/VSI ${{ github.workspace }}/vht/VSI
+     
+     # Run test suite in Arm VHT
       - uses: ARM-software/VHT-AMI@master
         with:
           vht_in: ./vht/
