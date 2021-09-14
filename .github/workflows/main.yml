@@ -48,9 +48,6 @@ jobs:
           instance_id: ${{ secrets.AWS_INSTANCE_ID }}
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key_id: ${{ secrets.AWS_SECRET_KEY }}
-      
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
           
       - name: Fetch results from VHT Testsuite
         run: |
