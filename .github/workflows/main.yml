@@ -54,7 +54,7 @@ jobs:
           
       - name: Fetch results from VHT Testsuite
         run: |
-           tar -xfv ${{ github.workspace }}/out.tar 
+           tar xvzf  ${{ github.workspace }}/out.tar 
            cat microspeech.stdio
            
            
