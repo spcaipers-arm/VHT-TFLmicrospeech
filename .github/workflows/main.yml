@@ -48,6 +48,11 @@ jobs:
           instance_id: ${{ secrets.AWS_INSTANCE_ID }}
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key_id: ${{ secrets.AWS_SECRET_KEY }}
+          
+      - name: Fetch results from VHT Testsuite
+        run: |
+           tar -xfv ${{ github.workspace }}/out.tar 
+           cat microspeech.stdio
            
            
            
