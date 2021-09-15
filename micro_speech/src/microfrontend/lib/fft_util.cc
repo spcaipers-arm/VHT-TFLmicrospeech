@@ -20,6 +20,8 @@ limitations under the License.
 #include "kiss_fft.h"
 #include "tools/kiss_fftr.h"
 
+#include "arm_math.h"
+
 int FftPopulateState(struct FftState* state, size_t input_size) {
   state->input_size = input_size;
   state->fft_size = 1;
@@ -41,6 +43,21 @@ int FftPopulateState(struct FftState* state, size_t input_size) {
     return 0;
   }
 
+#ifndef USE_KISS_FFT
+    arm_rfft_instance_q15 * cmsisFft;
+
+    cmsisFft = (arm_rfft_instance_q15 *)malloc(sizeof(arm_rfft_instance_q15));
+    if (cmsisFft == nullptr) {
+       fprintf(stderr, "Failed to alloc cmsis fft context\n");
+       return 0;
+    }
+    if (arm_rfft_init_q15(cmsisFft, state->fft_size, 0, 1) != ARM_MATH_SUCCESS) {
+       fprintf(stderr, "Failed to init cmsis fft \n");
+       return 0;
+    }
+
+    state->scratch = cmsisFft;
+#else
   // Ask kissfft how much memory it wants.
   size_t scratch_size = 0;
   kiss_fftr_cfg kfft_cfg = kiss_fftr_alloc(
@@ -62,6 +79,7 @@ int FftPopulateState(struct FftState* state, size_t input_size) {
     fprintf(stderr, "Kiss memory preallocation strategy failed.\n");
     return 0;
   }
+#endif
   return 1;
 }
 
