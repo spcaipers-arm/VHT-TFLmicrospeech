@@ -43,4 +43,3 @@ static void app_main (void *argument) {
 void app_initialize (void) {
   osThreadNew(app_main, NULL, &app_main_attr);
 }
-
