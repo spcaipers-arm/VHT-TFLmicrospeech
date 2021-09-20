@@ -37,9 +37,6 @@ void AudioIn_Handler (void) {
   AudioIn->IRQ = 0U;  /* Clear IRQ */
   __ISB();
   __DSB();
-  for (uint32_t n = 0; n < 200U; n++) {
-    __NOP();
-  }
   if (CB_Event != NULL) {
     CB_Event(AUDIO_DRV_EVENT_RX_DATA);
   }
@@ -55,7 +52,10 @@ int32_t AudioDrv_Initialize (AudioDrv_Event_t cb_event) {
   AudioIn->IRQ           = 0U;
   AudioIn->CONTROL       = 0U;
 
-  NVIC_EnableIRQ(AudioIn_IRQn);
+//NVIC_EnableIRQ(AudioIn_IRQn);
+  NVIC->ISER[(((uint32_t)AudioIn_IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)AudioIn_IRQn) & 0x1FUL));
+  __ISB();
+  __DSB();
 
   Initialized = 1U;
 
@@ -65,7 +65,10 @@ int32_t AudioDrv_Initialize (AudioDrv_Event_t cb_event) {
 /* De-initialize Audio Interface */
 int32_t AudioDrv_Uninitialize (void) {
 
-  NVIC_DisableIRQ(AudioIn_IRQn);
+//NVIC_DisableIRQ(AudioIn_IRQn);
+  NVIC->ICER[(((uint32_t)AudioIn_IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)AudioIn_IRQn) & 0x1FUL));
+  __DSB();
+  __ISB();
 
   AudioIn->Timer.Control = 0U;
   AudioIn->DMA.Control   = 0U;

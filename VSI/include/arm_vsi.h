@@ -29,14 +29,14 @@ extern "C" {
 
 
 /* IRQ number assignment (should be moved to device header) */
-#define ARM_VSI0_IRQn   0
-#define ARM_VSI1_IRQn   1
-#define ARM_VSI2_IRQn   2
-#define ARM_VSI3_IRQn   3
-#define ARM_VSI4_IRQn   4
-#define ARM_VSI5_IRQn   5
-#define ARM_VSI6_IRQn   6
-#define ARM_VSI7_IRQn   7
+#define ARM_VSI0_IRQn   224
+#define ARM_VSI1_IRQn   225
+#define ARM_VSI2_IRQn   226
+#define ARM_VSI3_IRQn   227
+#define ARM_VSI4_IRQn   228
+#define ARM_VSI5_IRQn   229
+#define ARM_VSI6_IRQn   230
+#define ARM_VSI7_IRQn   231
 
 /**
   \brief  Structure type to access the virtual streaming interface.
