@@ -76,3 +76,14 @@ from boards built-in microphone. Recognized keywords are written to the terminal
  - Build example with MDK using uVision project `microspeech.uvprojx` or CMSIS-Build using `microspeech.MIMXRT1064-EVK.cprj` project.
  - Program and run the example with MDK or use Drag-and-drop programming through the DAP-Link drive.
  - Open the DAP-Link Virtual COM port in a terminal (baudrate = 115200) and monitor recognized keywords.
+
+### Micro speech for IMXRT1050-EVKB board
+
+Project directory: `./Platform_IMXRT1050-EVKB/`
+
+This example shows how to run a voice recognition model that can recognize 2 keywords, "yes" and "no",
+from boards built-in microphone. Recognized keywords are written to the terminal.
+
+ - Build example with MDK using uVision project `microspeech.uvprojx` or CMSIS-Build using `microspeech.IMXRT1050-EVKB.cprj` project.
+ - Program and run the example with MDK or use Drag-and-drop programming through the DAP-Link drive.
+ - Open the DAP-Link Virtual COM port in a terminal (baudrate = 115200) and monitor recognized keywords.
