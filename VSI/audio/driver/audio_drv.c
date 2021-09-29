@@ -34,7 +34,7 @@ static AudioDrv_Event_t CB_Event = NULL;
 /* Audio Input Interrupt Handler */
 void AudioIn_Handler (void) {
 
-  AudioIn->IRQ = 0U;  /* Clear IRQ */
+  AudioIn->IRQ.Clear = 0x00000001U;
   __ISB();
   __DSB();
   if (CB_Event != NULL) {
@@ -49,7 +49,8 @@ int32_t AudioDrv_Initialize (AudioDrv_Event_t cb_event) {
 
   AudioIn->Timer.Control = 0U;
   AudioIn->DMA.Control   = 0U;
-  AudioIn->IRQ           = 0U;
+  AudioIn->IRQ.Clear     = 0x00000001U;
+  AudioIn->IRQ.Enable    = 0x00000001U;
   AudioIn->CONTROL       = 0U;
 
 //NVIC_EnableIRQ(AudioIn_IRQn);
@@ -72,7 +73,8 @@ int32_t AudioDrv_Uninitialize (void) {
 
   AudioIn->Timer.Control = 0U;
   AudioIn->DMA.Control   = 0U;
-  AudioIn->IRQ           = 0U;
+  AudioIn->IRQ.Clear     = 0x00000001U;
+  AudioIn->IRQ.Enable    = 0x00000000U;
   AudioIn->CONTROL       = 0U;
 
   Initialized = 0U;
@@ -160,6 +162,9 @@ int32_t AudioDrv_Control (uint32_t control) {
     AudioIn->DMA.Control   = 0U;
     AudioIn->CONTROL       = 0U;
   } else if ((control & AUDIO_DRV_CONTROL_RX_ENABLE) != 0U) {
+    AudioIn->CONTROL       = CONTROL_ENABLE_Msk;
+    AudioIn->DMA.Control   = ARM_VSI_DMA_Direction_P2M |
+                             ARM_VSI_DMA_Enable_Msk;
     sample_size = AudioIn->CHANNELS * ((AudioIn->SAMPLE_BITS + 7U) / 8U);
     sample_rate = AudioIn->SAMPLE_RATE;
     if ((sample_size == 0U) || (sample_rate == 0U)) {
@@ -168,10 +173,8 @@ int32_t AudioDrv_Control (uint32_t control) {
       block_size = AudioIn->DMA.BlockSize;
       AudioIn->Timer.Interval = (1000000U * (block_size / sample_size)) / sample_rate;
     }
-    AudioIn->DMA.Control   = ARM_VSI_DMA_Direction_P2M |
-                             ARM_VSI_DMA_Enable_Msk;
-    AudioIn->CONTROL       = CONTROL_ENABLE_Msk;
-    AudioIn->Timer.Control = ARM_VSI_Timer_Trig_IRQ_Msk |
+    AudioIn->Timer.Control = ARM_VSI_Timer_Trig_DMA_Msk |
+                             ARM_VSI_Timer_Trig_IRQ_Msk |
                              ARM_VSI_Timer_Periodic_Msk |
                              ARM_VSI_Timer_Run_Msk;
   }
