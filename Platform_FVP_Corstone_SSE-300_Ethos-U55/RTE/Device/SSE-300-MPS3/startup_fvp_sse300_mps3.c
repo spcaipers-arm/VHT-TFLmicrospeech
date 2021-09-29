@@ -422,7 +422,11 @@ extern const pFunc __VECTOR_TABLE[496];
   0,                                /*  221: Reserved */
   0,                                /*  222: Reserved */
   0,                                /*  223: Reserved */
+#ifdef __FVP_PY
   ARM_VSI0_Handler,                 /*  224: VSI 0 */
+#else
+  0,                                /*  224: Reserved */
+#endif
  };
 
 #if defined ( __GNUC__ )
