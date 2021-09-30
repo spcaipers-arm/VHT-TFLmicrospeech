@@ -19,6 +19,7 @@ limitations under the License.
 #define FIXED_POINT 16
 #include "kiss_fft.h"
 #include "tools/kiss_fftr.h"
+#include <arm_math.h>
 
 void FftCompute(struct FftState* state, const int16_t* input,
                 int input_scale_shift) {
@@ -38,9 +39,15 @@ void FftCompute(struct FftState* state, const int16_t* input,
   }
 
   // Apply the FFT.
+#ifdef USE_KISS_FFT
   kiss_fftr(reinterpret_cast<kiss_fftr_cfg>(state->scratch),
             state->input,
             reinterpret_cast<kiss_fft_cpx*>(state->output));
+#else
+  arm_rfft_q15(reinterpret_cast<arm_rfft_instance_q15 *>(state->scratch),
+            state->input,
+            reinterpret_cast<int16_t *>(state->output));
+#endif
 }
 
 void FftInit(struct FftState* state) {
