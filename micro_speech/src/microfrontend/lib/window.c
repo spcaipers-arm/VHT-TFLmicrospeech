@@ -85,7 +85,6 @@ int WindowProcessSamples(struct WindowState* state, const int16_t* samples,
   int i;
   int16_t max_abs_output_value = 0;
 #ifndef __ARM_FEATURE_MVE
-  int i;
 
   for (i = 0; i < size; ++i) {
     int16_t new_value =

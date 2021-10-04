@@ -20,7 +20,7 @@ limitations under the License.
 namespace tflite {
 
 void debug_log_printf(const char* s) {
-  printf(s);
+  printf("%s", s);
 }
 
 // To add an equivalent function for your own platform, create your own
