@@ -54,6 +54,9 @@ jobs:
            tar xvzf  ${{ github.workspace }}/vht/out.tar 
            cat microspeech.stdio
            
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+           
            
            
            
