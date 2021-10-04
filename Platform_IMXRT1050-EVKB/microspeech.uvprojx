@@ -329,7 +329,7 @@
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>3</v6Lang>
-            <v6LangP>3</v6LangP>
+            <v6LangP>6</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -709,29 +709,29 @@
           <targetInfo name="IMXRT1050-EVKB" versionMatchMode="fixed"/>
         </targetInfos>
       </package>
-      <package name="flatbuffers" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.1.20210719">
+      <package name="flatbuffers" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.4.0">
         <targetInfos>
-          <targetInfo name="IMXRT1050-EVKB"/>
+          <targetInfo name="IMXRT1050-EVKB" versionMatchMode="fixed"/>
         </targetInfos>
       </package>
-      <package name="gemmlowp" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/gemmlowp/" vendor="tensorflow" version="0.0.1.20210719">
+      <package name="gemmlowp" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/gemmlowp/" vendor="tensorflow" version="0.4.0">
         <targetInfos>
-          <targetInfo name="IMXRT1050-EVKB"/>
+          <targetInfo name="IMXRT1050-EVKB" versionMatchMode="fixed"/>
         </targetInfos>
       </package>
-      <package name="kissfft" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/kissfft/" vendor="tensorflow" version="0.1.20210719">
+      <package name="kissfft" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/kissfft/" vendor="tensorflow" version="0.4.0">
         <targetInfos>
-          <targetInfo name="IMXRT1050-EVKB"/>
+          <targetInfo name="IMXRT1050-EVKB" versionMatchMode="fixed"/>
         </targetInfos>
       </package>
-      <package name="ruy" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.1.20210719">
+      <package name="ruy" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.4.0">
         <targetInfos>
-          <targetInfo name="IMXRT1050-EVKB"/>
+          <targetInfo name="IMXRT1050-EVKB" versionMatchMode="fixed"/>
         </targetInfos>
       </package>
-      <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719">
+      <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.4.0">
         <targetInfos>
-          <targetInfo name="IMXRT1050-EVKB"/>
+          <targetInfo name="IMXRT1050-EVKB" versionMatchMode="fixed"/>
         </targetInfos>
       </package>
     </packages>
@@ -1071,37 +1071,41 @@
         </targetInfos>
       </component>
       <component Cclass="Data Exchange" Cgroup="Serialization" Csub="flatbuffers" Cvariant="tensorflow" Cvendor="tensorflow" Cversion="1.12.0">
-        <package name="flatbuffers" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.1.20210719"/>
+        <package name="flatbuffers" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
       </component>
       <component Cclass="Data Processing" Cgroup="Math" Csub="gemmlowp fixed-point" Cvariant="tensorflow" Cvendor="tensorflow" Cversion="1.0.0">
-        <package name="gemmlowp" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/gemmlowp/" vendor="tensorflow" version="0.0.1.20210719"/>
+        <package name="gemmlowp" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/gemmlowp/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
       </component>
       <component Cclass="Data Processing" Cgroup="Math" Csub="kissfft" Cvariant="tensorflow" Cvendor="tensorflow" Cversion="1.4.5">
-        <package name="kissfft" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/kissfft/" vendor="tensorflow" version="0.1.20210719"/>
+        <package name="kissfft" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/kissfft/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
-          <targetInfo name="IMXRT1050-EVKB"/>
+          <targetInfo name="IMXRT1050-EVKB">
+            <c>
+              <Optim>1</Optim>
+            </c>
+          </targetInfo>
         </targetInfos>
       </component>
       <component Cclass="Data Processing" Cgroup="Math" Csub="ruy" Cvariant="tensorflow" Cvendor="tensorflow" Cversion="1.12.0">
-        <package name="ruy" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.1.20210719"/>
+        <package name="ruy" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/flatbuffers/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
       </component>
-      <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719">
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+      <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0">
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
       </component>
-      <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel" Cvariant="CMSIS-NN" Cvendor="tensorflow" Cversion="0.2.20210719" condition="CMSIS-NN">
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+      <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel" Cvariant="CMSIS-NN" Cvendor="tensorflow" Cversion="0.4.0" condition="CMSIS-NN">
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
@@ -1270,24 +1274,24 @@
       </file>
       <file attr="config" category="sourceCpp" name="tensorflow\lite\micro\cortex_m_generic\debug_log.cc" version="1.0">
         <instance index="0">RTE\Machine_Learning\debug_log.cc</instance>
-        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719"/>
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0"/>
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
       </file>
       <file attr="config" category="sourceCpp" name="tensorflow\lite\micro\cortex_m_generic\micro_time.cc" version="1.0">
         <instance index="0">RTE\Machine_Learning\micro_time.cc</instance>
-        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719"/>
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0"/>
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>
       </file>
       <file attr="config" category="sourceCpp" name="tensorflow\lite\micro\system_setup.cc" version="1.0">
         <instance index="0">RTE\Machine_Learning\system_setup.cc</instance>
-        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719"/>
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0"/>
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="IMXRT1050-EVKB"/>
         </targetInfos>

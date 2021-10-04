@@ -313,7 +313,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>6</Optim>
+            <Optim>7</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -4230,8 +4230,8 @@
       </file>
       <file attr="config" category="sourceCpp" name="tensorflow\lite\micro\cortex_m_generic\debug_log.cc" version="1.0">
         <instance index="0">RTE\Machine_Learning\debug_log.cc</instance>
-        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719"/>
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0"/>
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/tensorflow-pack/releases/download/0.4/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="Audio Provider Mock"/>
           <targetInfo name="Audio Provider Mock Test"/>
@@ -4241,8 +4241,8 @@
       </file>
       <file attr="config" category="sourceCpp" name="tensorflow\lite\micro\cortex_m_generic\micro_time.cc" version="1.0">
         <instance index="0">RTE\Machine_Learning\micro_time.cc</instance>
-        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719"/>
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0"/>
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/tensorflow-pack/releases/download/0.4/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="Audio Provider Mock"/>
           <targetInfo name="Audio Provider Mock Test"/>
@@ -4252,8 +4252,8 @@
       </file>
       <file attr="config" category="sourceCpp" name="tensorflow\lite\micro\system_setup.cc" version="1.0">
         <instance index="0">RTE\Machine_Learning\system_setup.cc</instance>
-        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.2.20210719"/>
-        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/Pack/raw/master/TensorFlow-Pack/" vendor="tensorflow" version="0.2.20210719"/>
+        <component Cclass="Machine Learning" Cgroup="TensorFlow" Csub="Kernel Utils" Cvendor="tensorflow" Cversion="0.4.0"/>
+        <package name="tensorflow-lite-micro" schemaVersion="1.6" url="https://github.com/MDK-Packs/tensorflow-pack/releases/download/0.4/" vendor="tensorflow" version="0.4.0"/>
         <targetInfos>
           <targetInfo name="Audio Provider Mock"/>
           <targetInfo name="Audio Provider Mock Test"/>
