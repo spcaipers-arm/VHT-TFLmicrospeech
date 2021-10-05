@@ -1,6 +1,6 @@
 suite:
   name: "Tensorflow lite micro examples"
-  model: "/opt/arm_vsi/arm_vsi.x"
+  model: "VHT-Corstone-300"
   configuration: ""
   pre: ""
   post: ""
@@ -8,7 +8,7 @@ suite:
   tests:
    - "microspeech example":
       executable: "./elf/microspeech.axf"
-      arguments: "-V ./VSI/audio/python -f fvp_config.txt -a Objects/microspeech.axf --stat --cyclelimit 4000000000 $*"
+      arguments: "-V ./VSI/audio/python -f ./fvp_config.txt --stat --cyclelimit 768000000"
       pre: ""
       post: ""
       timeout: 20
