@@ -33,7 +33,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build on Docker
         run: |
-          docker exec build_runtime cp_install.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/packlist
+          
+          docker exec build_runtime wget https://www.keil.com/pack/index.pidx -P /armtools/packs/.Web/
           docker exec  -w /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55 build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
    
       - name: Prepare VHT Testsuite
