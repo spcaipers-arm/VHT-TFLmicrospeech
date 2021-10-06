@@ -16,13 +16,6 @@ for [TensorFlow Lite for Microcontrollers](https://www.tensorflow.org/lite/micro
    - [FVP model for Corstone-300 MPS3](https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/arm-ecosystem-fvps)
      (example for FVP)
  - [Python 3](https://www.python.org/downloads/) (example for FVP with user Python script)
- - additional CMSIS-Packs (not indexed and therefore not available via Pack Installer):
-   - [tensorflow.flatbuffers.0.1.20210719](https://github.com/MDK-Packs/tensorflow-pack/releases/download/preview-0.3/tensorflow.flatbuffers.0.1.20210719.pack)
-   - [kissfft.0.1.20210719](https://github.com/MDK-Packs/tensorflow-pack/releases/download/preview-0.3/tensorflow.kissfft.0.1.20210719.pack)
-   - [tensorflow.ruy.0.1.20210719](https://github.com/MDK-Packs/tensorflow-pack/releases/download/preview-0.3/tensorflow.ruy.0.1.20210719.pack)
-   - [tensorflow.gemmlowp.0.0.1.20210719](https://github.com/MDK-Packs/tensorflow-pack/releases/download/preview-0.3/tensorflow.gemmlowp.0.0.1.20210719.pack)
-   - [tensorflow.tensorflow-lite-micro.0.2.20210719](https://github.com/MDK-Packs/tensorflow-pack/releases/download/preview-0.3/tensorflow.tensorflow-lite-micro.0.2.20210719.pack)
-   - [Arm.ethos-u-core-driver.0.1.20210719](https://github.com/MDK-Packs/tensorflow-pack/releases/download/preview-0.3/Arm.ethos-u-core-driver.0.1.20210719.pack) (FVP with Ethos-U55)
 
 ## Micro speech for FVP (Fixed Virtual Platform) for Corstone SSE-300 with Ethos-U55
 
