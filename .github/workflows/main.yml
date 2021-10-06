@@ -57,7 +57,7 @@ jobs:
         run: |
            tar tvf  ${{ github.workspace }}/vht/out.tar
            tar xvzf  ${{ github.workspace }}/vht/out.tar 
-           cat /home/ubuntu/vhtwork/out/microspeech.axf.stdio
+           cat ./home/ubuntu/vhtwork/out/microspeech.axf.stdio
            
 
            
