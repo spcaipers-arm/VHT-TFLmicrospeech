@@ -8,6 +8,8 @@ suite:
   builds:
    - "microspeech example":
       shell: "cbuild.sh ./Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj"
+      post: "cp ./Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ./elf/" 
+      
 
   tests:
    - "microspeech example":
