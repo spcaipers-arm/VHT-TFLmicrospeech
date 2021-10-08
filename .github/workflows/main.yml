@@ -25,20 +25,24 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Create Container runtime from DockerHub
-        run : |
-          docker run -i -v ${{ github.workspace }}:/workspace/host --mac-address="00:02:F7:FF:55:55" --name build_runtime -d armswdev/cmsis_tools_m55:latest 
-          docker exec build_runtime pip3 install six requests pyyaml junit_xml pillow 
+      #- name: Create Container runtime from DockerHub
+      #  run : |
+      #    docker run -i -v ${{ github.workspace }}:/workspace/host --mac-address="00:02:F7:FF:55:55" --name build_runtime -d armswdev/cmsis_tools_m55:latest 
+      #    docker exec build_runtime pip3 install six requests pyyaml junit_xml pillow 
 
       # Runs a set of commands using the runners shell
-      - name: Build on Docker
+      #- name: Build on Docker
+      #  run: |
+      #    docker exec build_runtime wget -N https://www.keil.com/pack/index.pidx -P /armtools/packs/.Web/
+      #    docker exec  -w /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55 build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
+   
+      - name: Prepare Build on EC2 instance
         run: |
-          docker exec build_runtime wget -N https://www.keil.com/pack/index.pidx -P /armtools/packs/.Web/
-          docker exec  -w /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55 build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
+           cp -r ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/  ${{ github.workspace }}/vht/
    
       - name: Prepare VHT Testsuite
         run: |
-           cp ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ${{ github.workspace }}/vht/elf/
+           #cp ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ${{ github.workspace }}/vht/elf/
            cp -r ${{ github.workspace }}/VSI ${{ github.workspace }}/vht/VSI
            cp -r ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/fvp_config.txt ${{ github.workspace }}/vht/
      
