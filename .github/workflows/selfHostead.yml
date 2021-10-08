@@ -1,0 +1,70 @@
+# This is a basic workflow to help you get started with Actions on CMSIS projects
+# See also https://community.arm.com/developer/tools-software/tools/b/tools-software-ides-blog/posts/infrastructure-for-continuous-integration-tests
+
+name: ORTA example
+on:
+  push:
+    branches:
+      - main
+      - actions
+  pull_request:
+    branches:
+      - main
+      - actions
+
+# To allow you to run this workflow manually from the GitHub Actions tab add
+  workflow_dispatch:
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  INSTANCE_ID: ${{ secrets.AWS_INSTANCE_ID }}
+
+jobs:
+  start_orta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Launch ORTA instance
+        run: |
+          aws ec2 start-instances --instance-ids  ${{ env.INSTANCE_ID }} --region  ${{ env.AWS_DEFAULT_REGION }}
+  ci_demonstration:
+    needs: start_orta
+    runs-on: self-hosted
+    env:
+      working-directory: ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/
+      CMSIS_PACK_ROOT: /home/ubuntu/packs
+      CMSIS_COMPILER_ROOT: /opt/cbuild/etc
+      CMSIS_BUILD_ROOT: /opt/cbuild/bin
+      ARMLMD_LICENSE_FILE: /opt/data.dat
+      ARMCOMPILER6_CLANGOPT: -Wno-license-management
+      ARMCOMPILER6_LINKOPT: --diag_suppress=9931
+      ARMCOMPILER6_FROMELFOPT: --diag_suppress=9931
+      ARMCOMPILER6_ASMOPT: --diag_suppress=9931
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: What has been cloned?
+        run: echo "${{ github.repository }} has been cloned."
+
+      - name: Get dependencies
+        run: cp_install.sh packlist
+        working-directory: ${{ env.working-directory }}
+
+      - name: Build the micro_speech example
+        run: cbuild.sh microspeech.Example.cprj
+        working-directory: ${{ env.working-directory }}
+
+      - name: Run the micro_speech example
+        run: ./run_example.sh
+        working-directory: ${{ env.working-directory }}
+
+  stop_orta:
+    needs: ci_demonstration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop ORTA instance
+        run: |
+          aws ec2 stop-instances --instance-ids  ${{ env.INSTANCE_ID }} --region ${{ env.AWS_DEFAULT_REGION }}
