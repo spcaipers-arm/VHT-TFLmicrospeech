@@ -27,27 +27,27 @@ jobs:
 
       #- name: Create Container runtime from DockerHub
       #  run : |
-      #    docker run -i -v ${{ github.workspace }}:/workspace/host --mac-address="00:02:F7:FF:55:55" --name build_runtime -d armswdev/cmsis_tools_m55:latest 
-      #    docker exec build_runtime pip3 install six requests pyyaml junit_xml pillow 
+      #    docker run -i -v ${{ github.workspace }}:/workspace/host --mac-address="00:02:F7:FF:55:55" --name build_runtime -d armswdev/cmsis_tools_m55:latest
+      #    docker exec build_runtime pip3 install six requests pyyaml junit_xml pillow
 
       # Runs a set of commands using the runners shell
       #- name: Build on Docker
       #  run: |
       #    docker exec build_runtime wget -N https://www.keil.com/pack/index.pidx -P /armtools/packs/.Web/
       #    docker exec  -w /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55 build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
-   
+
       - name: Prepare Build on EC2 instance
         run: |
            cp -r ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/  ${{ github.workspace }}/vht/
-   
+
       - name: Prepare VHT Testsuite
         run: |
            #cp ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ${{ github.workspace }}/vht/elf/
            cp -r ${{ github.workspace }}/VSI ${{ github.workspace }}/vht/VSI
            cp -r ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/fvp_config.txt ${{ github.workspace }}/vht/
-     
+
      # Run test suite in Arm VHT
-      - uses: ARM-software/VHT-AMI@master
+      - uses: spcaipers-arm/VHT-AMI@use_s3_bucket
         with:
           vht_in: ./vht/
           instance_id: ${{ secrets.AWS_INSTANCE_ID }}
@@ -60,11 +60,5 @@ jobs:
       - name: Fetch results from VHT Testsuite
         run: |
            tar tvf  ${{ github.workspace }}/vht/out.tar
-           tar xvzf  ${{ github.workspace }}/vht/out.tar 
+           tar xvzf  ${{ github.workspace }}/vht/out.tar
            cat ./home/ubuntu/vhtwork/out/microspeech.axf.stdio
-           
-
-           
-           
-           
-           
