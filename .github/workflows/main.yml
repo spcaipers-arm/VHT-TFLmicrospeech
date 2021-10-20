@@ -1,64 +1,93 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  #push:
-  #  branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env:
+  CREATE_EC2_INSTANCE: true
+  EC2_INSTANCE_ID: ''
+  TERMINATE_EC2_INSTANCE: false
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+  AWS_DEFAULT_REGION: eu-west-1
+  AWS_S3_BUCKET: gh-orta-vht
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      #- name: Create Container runtime from DockerHub
-      #  run : |
-      #    docker run -i -v ${{ github.workspace }}:/workspace/host --mac-address="00:02:F7:FF:55:55" --name build_runtime -d armswdev/cmsis_tools_m55:latest
-      #    docker exec build_runtime pip3 install six requests pyyaml junit_xml pillow
+      - name: Create new EC2 instance
+        timeout-minutes: 2
+        if: ${{ env.CREATE_EC2_INSTANCE }}
+        run: |
+          instance_id=$(aws ec2 run-instances \
+                          --image-id ${{ secrets.AWS_AMI_ID }} \
+                          --count 1 \
+                          --instance-type t2.micro \
+                          --key-name common \
+                          --security-group-ids sg-0432ec5b74762b610 \
+                          --iam-instance-profile Name=Proj-s3-orta-vht-role \
+                          --subnet-id subnet-00455495b268076f0 \
+                          --output text \
+                          | awk '/INSTANCE/{print $9}')
+          echo "instance_id = $instance_id"
+          echo "EC2_INSTANCE_ID=$instance_id" >> $GITHUB_ENV
 
-      # Runs a set of commands using the runners shell
-      #- name: Build on Docker
-      #  run: |
-      #    docker exec build_runtime wget -N https://www.keil.com/pack/index.pidx -P /armtools/packs/.Web/
-      #    docker exec  -w /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55 build_runtime cbuild.sh /workspace/host/Platform_FVP_Corstone_SSE-300_Ethos-U55/microspeech.Example.cprj
+      - name: Wait for instance-status-ok
+        timeout-minutes: 10
+        if: ${{ env.CREATE_EC2_INSTANCE }}
+        run: |
+          aws ec2 wait instance-status-ok \
+            --instance-ids ${{ env.EC2_INSTANCE_ID }}
+
+      - name: Set EC2_INSTANCE_ID if not created and assigned
+        if: ${{ !env.CREATE_EC2_INSTANCE && env.EC2_INSTANCE_ID == '' }}
+        run: |
+          echo "EC2_INSTANCE_ID=${{ secrets.AWS_INSTANCE_ID }}" >> $GITHUB_ENV
 
       - name: Prepare Build on EC2 instance
         run: |
            cp -r ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/  ${{ github.workspace }}/vht/
+           cp -r ${{ github.workspace }}/micro_speech/ ${{ github.workspace }}/vht/
 
       - name: Prepare VHT Testsuite
         run: |
-           #cp ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/Objects/microspeech.axf ${{ github.workspace }}/vht/elf/
            cp -r ${{ github.workspace }}/VSI ${{ github.workspace }}/vht/VSI
            cp -r ${{ github.workspace }}/Platform_FVP_Corstone_SSE-300_Ethos-U55/fvp_config.txt ${{ github.workspace }}/vht/
 
-     # Run test suite in Arm VHT
+      # Run test suite in Arm VHT
+      # The EC2 instance needs a IAM Role allowing it to read/write S3 buckets.
+      # TODO: I need to give the policy for it
       - uses: spcaipers-arm/VHT-AMI@use_s3_bucket
         with:
           vht_in: ./vht/
-          instance_id: ${{ secrets.AWS_INSTANCE_ID }}
+          instance_id: ${{ env.EC2_INSTANCE_ID }}
+          aws_region: ${{ env. AWS_DEFAULT_REGION }}
+          s3_bucket_name: ${{ env.AWS_S3_BUCKET }}
           access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_key_id: ${{ secrets.AWS_SECRET_KEY }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+      - name: Archive out.tar
+        uses: actions/upload-artifact@v2
+        with:
+          name: out.tar
+          path: out.tar
 
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3
-
-      - name: Fetch results from VHT Testsuite
+      - name: Untar results from VHT Testsuite
         run: |
-           tar tvf  ${{ github.workspace }}/vht/out.tar
-           tar xvzf  ${{ github.workspace }}/vht/out.tar
-           cat ./home/ubuntu/vhtwork/out/microspeech.axf.stdio
+           tar xvzf out.tar
+           cat home/ubuntu/vhtwork/out/microspeech.axf.stdio
+
+      - name: Archive microspeech.axf.stdio
+        uses: actions/upload-artifact@v2
+        with:
+          name: microspeech.axf.stdio
+          path: home/ubuntu/vhtwork/out/microspeech.axf.stdio
+
+      - name: Terminate EC2 Instance
+        if: ${{ env.TERMINATE_EC2_INSTANCE && always() }}
+        run: |
+          aws ec2 terminate-instances \
+            --instance-ids ${{ env.EC2_INSTANCE_ID }}

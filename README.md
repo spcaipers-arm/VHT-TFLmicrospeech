@@ -3,8 +3,7 @@
 
 ## Micro speech for TensorFlow Lite
 
-Derived from [Micro speech example](https://github.com/MDK-Packs/tensorflow-pack/tree/main/examples/micro_speech)
-for [TensorFlow Lite for Microcontrollers](https://www.tensorflow.org/lite/microcontrollers).
+Micro speech example for [TensorFlow Lite for Microcontrollers](https://www.tensorflow.org/lite/microcontrollers).
 
 ### Prerequisites
  - toolchain (IDE):

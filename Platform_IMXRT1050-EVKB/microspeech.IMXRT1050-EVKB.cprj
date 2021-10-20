@@ -52,11 +52,11 @@
     <package name="iMXRT105x_MWP" vendor="Keil" version="1.4.0:1.4.0"/>
     <package name="EVKB-IMXRT1050_BSP" vendor="NXP" version="13.1.0:13.1.0"/>
     <package name="MIMXRT1052_DFP" vendor="NXP" version="13.1.0:13.1.0"/>
-    <package name="flatbuffers" vendor="tensorflow"/>
-    <package name="gemmlowp" vendor="tensorflow"/>
-    <package name="kissfft" vendor="tensorflow"/>
-    <package name="ruy" vendor="tensorflow"/>
-    <package name="tensorflow-lite-micro" vendor="tensorflow"/>
+    <package name="flatbuffers" vendor="tensorflow" version="0.4.0:0.4.0"/>
+    <package name="gemmlowp" vendor="tensorflow" version="0.4.0:0.4.0"/>
+    <package name="kissfft" vendor="tensorflow" version="0.4.0:0.4.0"/>
+    <package name="ruy" vendor="tensorflow" version="0.4.0:0.4.0"/>
+    <package name="tensorflow-lite-micro" vendor="tensorflow" version="0.4.0:0.4.0"/>
   </packages>
 
   <compilers>
@@ -67,7 +67,7 @@
     <output intdir="./Objects/" name="microspeech" outdir="./Objects/" type="exe"/>
     <ldflags add="--diag_suppress 6314,6329,6439 --strict --predefine=&quot;-DXIP_BOOT_HEADER_ENABLE=1&quot; --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers --entry=Reset_Handler" compiler="AC6" file="./RTE/Device/MIMXRT1052DVL6B/MIMXRT1052xxxxx_flexspi_nor.scf"/>
     <cflags add="-Os -Wno-documentation -Wno-documentation-unknown-command -Wno-license-management -Wno-missing-noreturn -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-nonportable-include-path -Wno-packed -Wno-parentheses-equality -Wno-reserved-id-macro -Wno-sign-conversion -Wno-unused-macros -ffunction-sections -fno-rtti -fshort-enums -fshort-wchar -funsigned-char -gdwarf-4 -std=c99 -xc" compiler="AC6"/>
-    <cxxflags add="-Os -Wno-documentation -Wno-documentation-unknown-command -Wno-license-management -Wno-missing-noreturn -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-nonportable-include-path -Wno-packed -Wno-parentheses-equality -Wno-reserved-id-macro -Wno-sign-conversion -Wno-unused-macros -ffunction-sections -fno-exceptions -fno-rtti -fshort-enums -fshort-wchar -funsigned-char -gdwarf-4 -std=c++11 -xc++" compiler="AC6"/>
+    <cxxflags add="-Os -Wno-documentation -Wno-documentation-unknown-command -Wno-license-management -Wno-missing-noreturn -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-nonportable-include-path -Wno-packed -Wno-parentheses-equality -Wno-reserved-id-macro -Wno-sign-conversion -Wno-unused-macros -ffunction-sections -fno-exceptions -fno-rtti -fshort-enums -fshort-wchar -funsigned-char -gdwarf-4 -std=c++14 -xc++" compiler="AC6"/>
     <asflags add="-gdwarf-4 -masm=auto" compiler="AC6"/>
     <includes>.;../VSI/audio/include;../micro_speech/src</includes>
     <defines>CODEC_WM8960_ENABLE;SKIP_SYSCLK_INIT;XIP_BOOT_HEADER_DCD_ENABLE=1;XIP_BOOT_HEADER_ENABLE=1;XIP_EXTERNAL_FLASH=1</defines>
